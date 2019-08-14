@@ -3,7 +3,7 @@
     "type": "magento-module",
     "license": "Open-Software-License-(OSL)",
     "homepage": "",
-    "description": "This extension activates the customers, products, categories and cms pages based on the customer group",
+    "description": "This extension allows you to sort the products on the basis of product rating in the product list page.",
     "authors": [
     {
         "name": "Exinent Developer",
