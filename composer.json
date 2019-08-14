@@ -3,10 +3,10 @@
     "type": "magento-module",
     "license": "Open-Software-License-(OSL)",
     "homepage": "",
-    "description": "This extension allows you to sort the products on the basis of product rating in the product list page.",
+    "description": "Design Fixes",
     "authors": [
     {
-        "name": "Exinent Developer",
+        "name": "Development ",
         "email": "developer@exinent.com"
     }
 ],
