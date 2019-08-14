@@ -37,7 +37,7 @@ class Exinent_CustomerActivation_Model_Observer {
 
     public function customerLogin($observer) {
 
-        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED) == 0) {
+        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, Mage::app()->getStore()) == 0) {
             return;
         }
 
@@ -92,8 +92,8 @@ class Exinent_CustomerActivation_Model_Observer {
                 // Do not set the default status on the admin customer edit save action
                 $groupId = $customer->getGroupId();
                 $defaultStatus = Mage::helper('customeractivation')->getDefaultActivationStatus($groupId, $storeId);
-                $startdate = Mage::getStoreConfig(self::XML_PATH_ACTIVATION_START_DATE);
-                $enddate = Mage::getStoreConfig(self::XML_PATH_ACTIVATION_END_DATE);
+                $startdate = Mage::getStoreConfig(self::XML_PATH_ACTIVATION_START_DATE, Mage::app()->getStore());
+                $enddate = Mage::getStoreConfig(self::XML_PATH_ACTIVATION_END_DATE, Mage::app()->getStore());
 
                 $paymentDate = date('Y-m-d');
                 $paymentDate = date('Y-m-d', strtotime($paymentDate));
@@ -115,7 +115,7 @@ class Exinent_CustomerActivation_Model_Observer {
                 $defaultStatus = Mage::helper('customeractivation')->getDefaultActivationStatus($groupId, $storeId);
                 if ($customer->getGroupId() == 1) {
                     $customer->setCustomerActivated('1');
-                } else if (Mage::getStoreConfig(self::XML_PATH_ACTIVATION_STATUS) == 1) {
+                } else if (Mage::getStoreConfig(self::XML_PATH_ACTIVATION_STATUS, Mage::app()->getStore()) == 1) {
 					if(($date_range == 'between') || ($date_range == 'notmentioned')) {
 					$customer->setCustomerActivated('1');					
 				}
@@ -152,8 +152,8 @@ class Exinent_CustomerActivation_Model_Observer {
             return;
         }
 
-        $startdate = Mage::getStoreConfig(self::XML_PATH_ACTIVATION_START_DATE);
-        $enddate = Mage::getStoreConfig(self::XML_PATH_ACTIVATION_END_DATE);
+        $startdate = Mage::getStoreConfig(self::XML_PATH_ACTIVATION_START_DATE, Mage::app()->getStore());
+        $enddate = Mage::getStoreConfig(self::XML_PATH_ACTIVATION_END_DATE, Mage::app()->getStore());
 
         $paymentDate = date('Y-m-d');
         $paymentDate = date('Y-m-d', strtotime($paymentDate));
@@ -176,7 +176,7 @@ class Exinent_CustomerActivation_Model_Observer {
 		
         if ($customer->getGroupId() == 1) {
             $customer->setCustomerActivated('1');			
-        } else if (Mage::getStoreConfig(self::XML_PATH_ACTIVATION_STATUS) == 1) {
+        } else if (Mage::getStoreConfig(self::XML_PATH_ACTIVATION_STATUS, Mage::app()->getStore()) == 1) {
 			if(($date_range == 'between') || ($date_range == 'notmentioned')) {
             $customer->setCustomerActivated('1');            
 			}
@@ -314,7 +314,7 @@ class Exinent_CustomerActivation_Model_Observer {
     }
 
     public function eavCollectionAbstractLoadBefore(Varien_Event_Observer $observer) {
-        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED) == 0) {
+        if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, Mage::app()->getStore()) == 0) {
             return;
         }
 

@@ -56,13 +56,17 @@ class Exinent_CustomerActivation_AccountController extends Mage_Customer_Account
                 $brands = implode(',', $brandsCarry);
                 $customer->setBrandsCarry($brands);
                 try {
-                    $logoImage='';
-                    $uploader = new Varien_File_Uploader('attachment');
-                    $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
-                    $uploader->setAllowRenameFiles(true);
-                    $path = Mage::getBaseDir('media') . DS . 'customerlogs' . DS;
-                    $img = $uploader->save($path, $_FILES['attachment']['name']);
-                    $logoImage = 'customerlogs/' . $_FILES['attachment']['name'];
+
+                $logoImage='';
+                $uploader = new Varien_File_Uploader('attachment');
+                $uploader->setFilesDispersion(true);
+                $uploader->setFilenamesCaseSensitivity(false);              
+                $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
+                $uploader->setAllowRenameFiles(true);
+                $path = Mage::getBaseDir('media') . DS . 'customerlogs' . DS;
+                $uploader->save($path, $_FILES['attachment']['name']);
+                $fileName = $uploader->getUploadedFileName();
+                $logoImage = 'customerlogs/' . $fileName;
 
                     
                 } catch (Exception $e) {

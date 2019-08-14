@@ -6,9 +6,9 @@ class Exinent_CustomerActivation_productOrderController extends Mage_Core_Contro
         parent::preDispatch();
         $action = $this->getRequest()->getActionName();
         $loginUrl = Mage::helper('customer')->getLoginUrl();
-        $ModuleStatus = Mage::getStoreConfig('customer/customeractivation/disable_ext');
+        $ModuleStatus = Mage::getStoreConfig('customer/customeractivation/disable_ext', Mage::app()->getStore());
 
-        $customerGroups = Mage::getStoreConfig('customer/customeractivation/require_activation_groups');
+        $customerGroups = Mage::getStoreConfig('customer/customeractivation/require_activation_groups', Mage::app()->getStore());
         $customers = explode(',', $customerGroups);
         $customer = Mage::getSingleton('customer/session')->getCustomer();
         $customerId = $customer->getGroupId();
@@ -39,7 +39,7 @@ class Exinent_CustomerActivation_productOrderController extends Mage_Core_Contro
     }
 
     public function submitorderbySimpleproductAction() {
-        $minQty = Mage::getStoreConfig('customer/customeractivation/min_qty');
+        $minQty = Mage::getStoreConfig('customer/customeractivation/min_qty', Mage::app()->getStore());
 
         $params = $this->getRequest()->getParams();
         $cart = Mage::getModel('checkout/cart');

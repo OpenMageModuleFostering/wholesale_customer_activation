@@ -2,25 +2,38 @@
 
 class Exinent_CustomerActivation_Model_Resource_Attribute_Source_Customerpayment extends Mage_Eav_Model_Entity_Attribute_Source_Abstract {
 
-    public function getAllOptions() {
+     public function getAllOptions() {
+
         if (is_null($this->_options)) {
-            $payments = Mage::getSingleton('payment/config')->getActiveMethods();
-            $payMethods = array();
-            foreach ($payments as $paymentCode => $paymentModel) {
-                $payMethods[$paymentCode] = array('value' => $paymentCode, 'label' => Mage::getStoreConfig('payment/' . $paymentCode . '/title'));
-            }
-            return $payMethods;
+            $this->_options = array(
+                array(
+                    'label' => 'Net30',
+                    'value' => 'net30'
+                ),
+                array(
+                    'label' => 'Net15',
+                    'value' => 'net15'
+                ),
+                
+            );
         }
+        return $this->_options;
     }
 
     public function getOptionArray() {
         $_options = array();
         foreach ($this->getAllOptions() as $option) {
-            $_options[$option["value"]] = $option["label"];
+            $_options[$option['value']] = $option['label'];
         }
         return $_options;
     }
 
+    /**
+     * Get a text for option value
+     *
+     * @param string|integer $value
+     * @return string
+     */
     public function getOptionText($value) {
         $options = $this->getAllOptions();
         foreach ($options as $option) {
@@ -31,34 +44,28 @@ class Exinent_CustomerActivation_Model_Resource_Attribute_Source_Customerpayment
         return false;
     }
 
+    /**
+     * Retrieve Column(s) for Flat
+     *
+     * @return array
+     */
     public function getFlatColums() {
-        $columns = array();
-        $columns[$this->getAttribute()->getAttributeCode()] = array(
-            "type" => "tinyint(1)",
-            "unsigned" => false,
-            "is_null" => true,
-            "default" => null,
-            "extra" => null
+        $columns = array(
+            $this->getAttribute()->getAttributeCode() => array(
+                'type' => 'int',
+                'unsigned' => false,
+                'is_null' => true,
+                'default' => null,
+                'extra' => null
+            )
         );
-
         return $columns;
     }
 
-    public function getFlatIndexes() {
-        $indexes = array();
-
-        $index = "IDX_" . strtoupper($this->getAttribute()->getAttributeCode());
-        $indexes[$index] = array(
-            "type" => "index",
-            "fields" => array($this->getAttribute()->getAttributeCode())
-        );
-
-        return $indexes;
-    }
-
     public function getFlatUpdateSelect($store) {
-        return Mage::getResourceModel("eav/entity_attribute")
+        return Mage::getResourceModel('eav/entity_attribute')
                         ->getFlatUpdateSelect($this->getAttribute(), $store);
     }
+
 
 }

@@ -49,7 +49,7 @@
         <div class="fieldset">
 
             <ul class="form-list">
-                <?php $addressconfig = Mage::getStoreConfig('customer/customeractivation/address_field'); ?>
+                <?php $addressconfig = Mage::getStoreConfig('customer/customeractivation/address_field', Mage::app()->getStore()); ?>
                 <?php if ($addressconfig == 1): ?>
                     <input type="hidden" name="create_address" value="1" />
                     <li class="fields">
@@ -249,7 +249,7 @@
                       </li> -->
             </ul>
         </div>
-        <?php if (Mage::getStoreConfig("fontis_recaptcha/recaptcha/customer")): ?>
+        <?php if (Mage::getStoreConfig("fontis_recaptcha/recaptcha/customer", Mage::app()->getStore())): ?>
             <?php echo $this->getChildHtml('recaptcha_box') ?>
         <?php endif; ?>
 
@@ -273,7 +273,7 @@
             var fup = document.getElementById('attachment');
             var fileName = fup.value;
             var imagename = fileName.substring(0,fileName.lastIndexOf('.'));
-            var ck_username = /^[A-Za-z0-9_]{3,20}$/;         
+            var ck_username = /^[0-9a-zA-Z\.\_\-]*$/;         
              
             
             var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
@@ -292,18 +292,19 @@
                 //alert("Upload PNG or JPG Images only");
                 return false;
             }
-            if (!ck_username.test(imagename)) {
-                jQuery('#imgerror').addClass( 'validation-advice' );
-            document.getElementById("imgerror").innerHTML="Please upload valid FileName";
-            return false;
-            }else
-            {
-                
-                jQuery('#imgerror').removeClass( 'validation-advice' );
+       /*     if (ck_username.test(imagename)) {
+                 jQuery('#imgerror').removeClass( 'validation-advice' );
             document.getElementById("imgerror").innerHTML="";
                 //alert("Upload PNG or JPG Images only");
                 return true;;
-            }
+               
+            }else
+            {
+                 jQuery('#imgerror').addClass( 'validation-advice' );
+            document.getElementById("imgerror").innerHTML="Please upload valid FileName";
+            return false;
+               
+            }*/
 
         }
         var paymentterms = jQuery('#paymentterms').val();

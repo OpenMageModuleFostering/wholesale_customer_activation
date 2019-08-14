@@ -10,7 +10,6 @@ $installer->addAttribute("customer", "paymentmethods", array(
     "label" => "Payment Methods",
     "input" => "multiselect",
     "source" => "customeractivation/resource_attribute_source_Customerpayment",
-    "backend" => "",
     "user_defined" => "1",
     "visible" => true,
     "required" => false,

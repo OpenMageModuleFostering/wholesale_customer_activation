@@ -5,9 +5,9 @@ include(Mage::getBaseDir() . "/app/code/core/Mage/Catalog/controllers/ProductCon
 class Exinent_CustomerActivation_ProductController extends Mage_Catalog_ProductController {
 
     public function viewAction() {
-        $ModuleStatus = Mage::getStoreConfig('customer/customeractivation/disable_ext');
+        $ModuleStatus = Mage::getStoreConfig('customer/customeractivation/disable_ext', Mage::app()->getStore());
         if($ModuleStatus==1){
-            $cmsPagesList = Mage::getStoreConfig('customer/customeractivation/require_aunthenticate_products');
+            $cmsPagesList = Mage::getStoreConfig('customer/customeractivation/require_aunthenticate_products', Mage::app()->getStore());
             $pages = explode(',', $cmsPagesList);
             $currentUrl = Mage::helper('core/url')->getCurrentUrl();
             $baseUrl = Mage::getBaseUrl();
@@ -26,7 +26,7 @@ class Exinent_CustomerActivation_ProductController extends Mage_Catalog_ProductC
                             ->setRedirect(Mage::getUrl('customer/account/login'))
                             ->sendResponse();
                 }else{
-                    $customerGroups = Mage::getStoreConfig('customer/customeractivation/require_activation_groups');
+                    $customerGroups = Mage::getStoreConfig('customer/customeractivation/require_activation_groups', Mage::app()->getStore());
                     $customers = explode(',', $customerGroups);
                     $customer = Mage::getSingleton('customer/session')->getCustomer();
                     $customerId = $customer->getGroupId();

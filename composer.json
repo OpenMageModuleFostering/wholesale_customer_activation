@@ -1,13 +1,13 @@
 {
     "name": "OpenMageModuleFostering/Wholesale_Customer_Activation",
     "type": "magento-module",
-    "license": "Open-Software-License",
+    "license": "Open-Software-License-(OSL)",
     "homepage": "",
-    "description": "Bug Fixes",
+    "description": "Added custom payment terms and bug fixes",
     "authors": [
     {
-        "name": "Exinent Dev Team",
-        "email": "support@exinent.com"
+        "name": "Devlopment",
+        "email": "developer@exinent.com"
     }
 ],
     "suggest": {

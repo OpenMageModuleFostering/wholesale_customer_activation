@@ -1,7 +1,7 @@
 <?php
 $orderSimpleProductsCollection = $this->getOrderSimpleProducts();
 $baseUrl = Mage::getBaseUrl();
-$minQty = Mage::getStoreConfig('customer/customeractivation/min_qty');
+$minQty = Mage::getStoreConfig('customer/customeractivation/min_qty', Mage::app()->getStore());
 if($minQty){
 ?>
 <div><h5>Minimum Order Quantity <?php echo $minQty; ?></h5></div>

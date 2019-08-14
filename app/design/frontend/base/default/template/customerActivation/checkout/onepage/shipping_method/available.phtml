@@ -3,13 +3,13 @@
 <?php $_shippingRateGroups = $this->getShippingRates(); ?>
 <?php
 $flag = 0;
-$customer = Mage::getSingleton('customer/session')->getCustomer();
+/*$customer = Mage::getSingleton('customer/session')->getCustomer();
 $customerObj = Mage::getModel('customer/customer')->load($customer->getId());
 $customerGroupId = $customerObj->getGroupId();
 $customerShippingmethods = $customerObj->getShippingmethods();
 $shippingMethods = explode(',', $customerShippingmethods);
 $customerGroupIdconfig = Mage::helper('customeractivation')->getCustomerGroupId();
-$cofigGroupsIds = explode(',', $customerGroupIdconfig);
+$cofigGroupsIds = explode(',', $customerGroupIdconfig);*/
 ?>
 <?php if (!$_shippingRateGroups): ?>
     <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>

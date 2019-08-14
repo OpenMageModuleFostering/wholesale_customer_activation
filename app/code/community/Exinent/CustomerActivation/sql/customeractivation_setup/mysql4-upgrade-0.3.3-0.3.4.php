@@ -9,7 +9,6 @@ $installer->addAttribute("customer", "shippingmethods", array(
     "label" => "Shipping Methods",
     "input" => "multiselect",
     "source" => "customeractivation/resource_attribute_source_Customershippingmethods",
-    "backend" => "",
     "user_defined" => "1",
     "visible" => true,
     "required" => false,
