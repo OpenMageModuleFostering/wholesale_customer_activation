@@ -162,7 +162,18 @@ class Exinent_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
     public function getCustomerGroupId() {
-        return Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS_GROUPS);
+        return Mage::getStoreConfig(self::XML_PATH_DEFAULT_STATUS_GROUPS, Mage::app()->getStore());
+    }
+    public function sendCustomer1NotificationEmail(Mage_Customer_Model_Customer $customer)
+    {
+        if (Mage::getStoreConfig(self::XML_PATH_ALERT_CUSTOMER, $this->getCustomerStoreId($customer))) {
+            $to = array(array(
+                'name' => $customer->getName(),
+                'email' => $customer->getEmail(),
+            ));
+            $this->_sendNotificationEmail($to, $customer, self::XML_PATH_EMAIL_CUSTOMER_NOTIFICATION_TEMPLATE1);
+        }
+        return $this;
     }
 
 }

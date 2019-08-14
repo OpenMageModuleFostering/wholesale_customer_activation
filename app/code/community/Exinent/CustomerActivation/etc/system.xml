@@ -94,28 +94,16 @@
                             <show_in_store>1</show_in_store>
                         </require_aunthenticate_products>
 
-<!--                        <price_field translate="label" module="customeractivation">
-                            <label>Hide Price</label>
+                        <activation_template1 translate="label" module="customeractivation">
+                            <label>Customer Notification Email Template(WholeSale)</label>
+                            
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>17</sort_order>
                             <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>18</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                        </price_field>
-                        
-                        <price_hide_products>
-                            <label>Price Hide Products List</label>
-                            <frontend_type>multiselect</frontend_type>
-                            <source_model>customeractivation/adminhtml_system_config_source_products_price_multiselect</source_model>
-                            <sort_order>19</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <depends>
-                                <price_field>1</price_field>
-                            </depends>
-                        </price_hide_products>-->
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                        </activation_template1>
                         
                         <activation_status_default translate="label" module="customeractivation">
                             <label>Activate Wholesaler Accounts by Default</label>
@@ -139,7 +127,7 @@
                             </depends>
                         </date_start>
                        
-                          <date_end>
+                        <date_end>
                             <label>End Date</label>
                             <frontend_type>text</frontend_type>
                             <frontend_model>customeractivation/adminhtml_system_config_date</frontend_model>

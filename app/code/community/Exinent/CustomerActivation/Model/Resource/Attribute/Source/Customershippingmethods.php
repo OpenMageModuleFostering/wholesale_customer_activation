@@ -6,7 +6,7 @@ class Exinent_CustomerActivation_Model_Resource_Attribute_Source_Customershippin
         if (is_null($this->_options)) {
             $activeCarriers = Mage::getSingleton('shipping/config')->getActiveCarriers();
             foreach ($activeCarriers as $carrierCode => $carrierModel) {
-                $allCarriers[$carrierCode] = array('value' => Mage::getStoreConfig('carriers/' . $carrierCode . '/title'), 'label' => Mage::getStoreConfig('carriers/' . $carrierCode . '/title'));
+                $allCarriers[$carrierCode] = array('value' => Mage::getStoreConfig('carriers/' . $carrierCode . '/title', Mage::app()->getStore()), 'label' => Mage::getStoreConfig('carriers/' . $carrierCode . '/title', Mage::app()->getStore()));
             }
             return $allCarriers;
         }

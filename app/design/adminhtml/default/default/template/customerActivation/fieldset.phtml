@@ -43,11 +43,17 @@
         $model = Mage::getModel('customer/customer')->load($customerId);
         $logoImage = $model->getData('logo_image');
         if($logoImage!=''){
-
+        $userfile_extn = substr($logoImage, strrpos($logoImage, '.')+1);
         ?>
-    <span><b>Logo Image:</b>&nbsp;&nbsp;&nbsp;</span><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);echo $logoImage;?>" title="yamini" height="150">&nbsp;&nbsp;&nbsp;
+    <span><b>Store Logo/PDF:</b>&nbsp;&nbsp;&nbsp;</span>
+    <?php if($userfile_extn!='pdf'){ ?><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);echo $logoImage;?>" title="yamini" height="150"/>&nbsp;&nbsp;&nbsp;
     <a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);echo $logoImage;?>">View Full Image</a>
-    <?php }?>
+
+    <?php }else{ ?> 
+
+<a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);echo $logoImage;?>">View PDF File</a>
+
+    <?php }} ?>
 </div>
 <div>&nbsp;</div>
 <?php endif;?>

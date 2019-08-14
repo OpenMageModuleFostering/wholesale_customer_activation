@@ -1,5 +1,7 @@
 <?php
+
 $orderSimpleProductsCollection = $this->getOrderSimpleProducts();
+
 $baseUrl = Mage::getBaseUrl();
 $minQty = Mage::getStoreConfig('customer/customeractivation/min_qty', Mage::app()->getStore());
 if($minQty){
@@ -9,20 +11,28 @@ if($minQty){
 <div class="order_prodct_collection inner-container">
     <form name="" id="" method="post" action="<?php echo Mage::getUrl('*/*/submitorderbySimpleproduct') ?>">
         <div class="third-block grid12-12">
-            <?php $i=0; foreach ($orderSimpleProductsCollection as $orderProduct): ?>
+            <?php $i=0; 
+            foreach ($orderSimpleProductsCollection as $orderProduct): 
+            	?>
                 <?php //if ($typeCategory == $orderProduct['category']): ?>
                 <div class="order_product grid12-3">
                     <img src="<?php echo $orderProduct['image']; ?>" />
                     <div class="order_product_sku">
-                        <div class="order_product_name"><a href="<?php echo $baseUrl.$orderProduct['product_url'].'html'; ?>"><?php echo $orderProduct['name']; ?></a></div>
+                        <div class="order_product_name"><a href="<?php echo $baseUrl.$orderProduct['product_url'].'html'; 
+                        ?>"><?php 
+                         echo $orderProduct['name']; ?></a></div>
                         <div class="order_product_name"><?php echo $orderProduct['price']; ?></div>
                         <span class="attr-width cart-table">
                             <label>Quantity</label>
+                               <?php $skureplace = str_replace(' ', '', $orderProduct['sku']);
+                                $skureplace = str_replace("'", "", $skureplace);
+                              ?>
+
                             <?php $sku = $orderProduct['sku']; ?>
                             <input type="text" class="input-text qty" onchange="qtyCalculate('<?php echo $skureplace . '_' . $i; ?>', '<?php echo count($orderProduct['sku']); ?>')" name="<?php echo $orderProduct['product_id'] ?>_<?php echo $sku; ?>" id="<?php echo $skureplace . '_' . $i; ?>" value=""/>
                         </span>
 
-                        <b><span class="totalcount" name="total" id="<?php echo $skureplace; ?>"></span></b>
+                        <b><span class="totalcount" name="total" id="<?php //echo $skureplace; ?>"></span></b>
 
                     </div>
 

@@ -34,14 +34,17 @@ class Exinent_CustomerActivation_productOrderController extends Mage_Core_Contro
     }
 
     public function quickorderproductAction() {
+        Mage::log('quickorderproductAction',null,'yams.log');
         $this->loadLayout();
         $this->renderLayout();
     }
 
     public function submitorderbySimpleproductAction() {
+          //Mage::log('tsfdsf',null,'yams.log');
         $minQty = Mage::getStoreConfig('customer/customeractivation/min_qty', Mage::app()->getStore());
 
         $params = $this->getRequest()->getParams();
+
         $cart = Mage::getModel('checkout/cart');
         foreach ($params as $sku => $qty) {
 

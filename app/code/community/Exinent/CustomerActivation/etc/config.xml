@@ -2,11 +2,10 @@
 <config>
     <modules>
         <Exinent_CustomerActivation>
-            <version>0.3.4</version>
+            <version>0.1.5</version>
         </Exinent_CustomerActivation>
     </modules>
     <global>
-
         <rewrite>
             <customeractivation>
                 <from><![CDATA[#^/customer/account/createpost/#]]></from>
@@ -46,12 +45,16 @@
                     <html_topmenu>Exinent_CustomerActivation_Block_Page_Html_Topmenu</html_topmenu>
                 </rewrite>
             </page>
-             
+
+              
       <adminhtml>
          <rewrite>
              <widget_form_renderer_fieldset>Exinent_CustomerActivation_Block_Adminhtml_Rewrite_Fieldset</widget_form_renderer_fieldset>
         </rewrite>
-      </adminhtml>  
+      </adminhtml>
+   
+   
+
         </blocks>
         <resources>
             <customeractivation_setup>
@@ -61,7 +64,20 @@
                 </setup>
             </customeractivation_setup>
         </resources>
-
+        <template>
+            <email>
+                <customer_customeractivation_registration_admin_template translate="label" module="customeractivation">
+                    <label>Customer Registration Admin Notification</label>
+                    <file>Exinent/customeractivation/customer_registration_admin.html</file>
+                    <type>html</type>
+                </customer_customeractivation_registration_admin_template>
+                <customer_customeractivation_activation_template translate="label" module="customeractivation">
+                    <label>Customer Activation Notification</label>
+                    <file>Exinent/customeractivation/customer_activation.html</file>
+                    <type>html</type>
+                </customer_customeractivation_activation_template>
+            </email>
+        </template>
         <events>
 
 
@@ -154,7 +170,7 @@
                     </customeractivation>
                 </observers>
             </customer_login>
-<!--             <sales_convert_quote_address_to_order>
+            <sales_convert_quote_address_to_order>
                 <observers>
                     <customeractivation>
                         <type>singleton</type>
@@ -162,7 +178,7 @@
                         <method>salesCovertQuoteAddressToOrder</method>
                     </customeractivation>
                 </observers>
-            </sales_convert_quote_address_to_order> -->
+            </sales_convert_quote_address_to_order>
         </events>
         <translate>
             <modules>

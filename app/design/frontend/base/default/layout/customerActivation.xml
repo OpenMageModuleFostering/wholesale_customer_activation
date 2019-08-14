@@ -1,13 +1,18 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
     <customer_account_login>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
         <reference name="customer_form_login">
             <action method="setTemplate">
                 <template>customerActivation/customerActivation.phtml</template>
             </action>
         </reference>
     </customer_account_login>
-    <!--<default>
+    <default>
         <reference name="catalog.topnav">
             <action method="addLink" translate="label">
                 <label>Quick Order</label>
@@ -15,7 +20,7 @@
                 <path>customeractivation/productorder/quickorderproduct/</path>
             </action>
         </reference>
-    </default> -->
+    </default> 
 
     <customer_logged_out>
         <reference name="top.links">
@@ -67,5 +72,4 @@
             <block type="customeractivation/orderproduct" name="ordermgt" template="customerActivation/quickorderproduct.phtml"/>
         </reference>     
     </customeractivation_productorder_quickorderproduct>  
-
 </layout>

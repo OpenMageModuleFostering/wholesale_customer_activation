@@ -63,7 +63,7 @@ class Exinent_CustomerActivation_Block_Orderproduct extends Mage_Core_Block_Temp
                 $orderProduct[$i]['product_id'] = $product->getId();
                 $orderProduct[$i]['product_url'] = $product->getUrlKey();
                 $orderProduct[$i]['name'] = $product->getName();
-                $orderProduct[$i]['price'] = $product->getPrice();
+                $orderProduct[$i]['price'] = $product->getFinalPrice();
                 $orderProduct[$i]['sku'] = $product->getSku();
                 $orderProduct[$i]['image'] = $product->getImageUrl();
                 $i++;
@@ -73,6 +73,7 @@ class Exinent_CustomerActivation_Block_Orderproduct extends Mage_Core_Block_Temp
     }
 
     public function getOrderProduct() {
+       // Mage::log('getOrderProduct',null,'yams.log');
         $orderProducts = array();
         $categoryArray = array();
         $data = array();

@@ -54,10 +54,10 @@
     foreach ($methods as $_method):
          $_code='';
         $_code = $_method->getCode($_code);
-    
-if($customerGroupId != 2 && ($_code == 'net30' || $_code == 'net15' || $_code=='purchaseorder')):
+	
+if($customerGroupId != 2 && ($_code == 'net30' || $_code == 'net15' || $_code == 'net60' || $_code=='purchaseorder')):
     continue;
-elseif(($_code == 'net30' || $_code == 'net15' ) && !in_array($_code,$paymentMethods)):
+elseif(($_code == 'net30' || $_code == 'net15' || $_code == 'net60') && !in_array($_code,$paymentMethods)):
     continue;
 endif;
 ?>
