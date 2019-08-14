@@ -78,6 +78,7 @@ class Exinent_CustomerActivation_Model_Observer {
 
     public function customerSaveBefore($observer) {
         $customer = $observer->getEvent()->getCustomer();
+		
 
         $storeId = Mage::helper('customeractivation')->getCustomerStoreId($customer);
 
@@ -101,9 +102,11 @@ class Exinent_CustomerActivation_Model_Observer {
                 $contractDateEnd = date('Y-m-d', strtotime($enddate));
 
                 if ($paymentDate > $contractDateBegin && $paymentDate < $contractDateEnd) {
+			
                     $date_range = 'between';
-                } else if ($enddate == '') {
+                } else if ($paymentDate > $contractDateBegin && $enddate == '') {
                     $date_range = 'notmentioned';
+					
                 } else {
                     $date_range = 'notin';
                 }
@@ -112,9 +115,11 @@ class Exinent_CustomerActivation_Model_Observer {
                 $defaultStatus = Mage::helper('customeractivation')->getDefaultActivationStatus($groupId, $storeId);
                 if ($customer->getGroupId() == 1) {
                     $customer->setCustomerActivated('1');
-                } else if (Mage::getStoreConfig(self::XML_PATH_ACTIVATION_STATUS) == 1 && ($date_range == 'between') || ($date_range == 'notmentioned')) {
-                    $customer->setCustomerActivated('1');
-                } else {
+                } else if (Mage::getStoreConfig(self::XML_PATH_ACTIVATION_STATUS) == 1) {
+					if(($date_range == 'between') || ($date_range == 'notmentioned')) {
+					$customer->setCustomerActivated('1');					
+				}
+			} else {
                     $customer->setCustomerActivated('New');
                 }
 
@@ -140,7 +145,7 @@ class Exinent_CustomerActivation_Model_Observer {
     public function customerSaveAfter($observer) {
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = $observer->getEvent()->getCustomer();
-
+		
         $storeId = Mage::helper('customeractivation')->getCustomerStoreId($customer);
 
         if (Mage::getStoreConfig(self::XML_PATH_MODULE_DISABLED, $storeId) == 0) {
@@ -155,10 +160,11 @@ class Exinent_CustomerActivation_Model_Observer {
 
         $contractDateBegin = date('Y-m-d', strtotime($startdate));
         $contractDateEnd = date('Y-m-d', strtotime($enddate));
+		
 
         if ($paymentDate > $contractDateBegin && $paymentDate < $contractDateEnd) {
             $date_range = 'between';
-        } else if ($enddate == '') {
+        } else if ($paymentDate > $contractDateBegin && $enddate == '') {
             $date_range = 'notmentioned';
         } else {
             $date_range = 'notin';
@@ -166,12 +172,16 @@ class Exinent_CustomerActivation_Model_Observer {
 
         $groupId = $customer->getGroupId();
         $defaultStatus = Mage::helper('customeractivation')->getDefaultActivationStatus($groupId, $storeId);
+		
+		
         if ($customer->getGroupId() == 1) {
-            $customer->setCustomerActivated('1');
-        } else if (Mage::getStoreConfig(self::XML_PATH_ACTIVATION_STATUS) == 1 && ($date_range == 'between') || ($date_range == 'notmentioned')) {
-            $customer->setCustomerActivated('1');
+            $customer->setCustomerActivated('1');			
+        } else if (Mage::getStoreConfig(self::XML_PATH_ACTIVATION_STATUS) == 1) {
+			if(($date_range == 'between') || ($date_range == 'notmentioned')) {
+            $customer->setCustomerActivated('1');            
+			}
         } else {
-            $customer->setCustomerActivated('New');
+            $customer->setCustomerActivated('New');			
         }
 
         try {

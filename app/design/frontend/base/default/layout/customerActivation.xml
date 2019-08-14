@@ -7,7 +7,7 @@
             </action>
         </reference>
     </customer_account_login>
-    <default>
+    <!--<default>
         <reference name="catalog.topnav">
             <action method="addLink" translate="label">
                 <label>Quick Order</label>
@@ -15,7 +15,7 @@
                 <path>customeractivation/productorder/quickorderproduct/</path>
             </action>
         </reference>
-    </default>
+    </default> -->
 
     <customer_logged_out>
         <reference name="top.links">

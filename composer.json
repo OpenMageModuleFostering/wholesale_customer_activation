@@ -1,13 +1,13 @@
 {
     "name": "OpenMageModuleFostering/Wholesale_Customer_Activation",
     "type": "magento-module",
-    "license": "Open-Software-License-(OSL)",
+    "license": "Open-Software-License",
     "homepage": "",
-    "description": "Design Fixes",
+    "description": "Bug Fixes and New Features Added",
     "authors": [
     {
-        "name": "Development ",
-        "email": "developer@exinent.com"
+        "name": "Dev Team",
+        "email": "support@exinent.com"
     }
 ],
     "suggest": {

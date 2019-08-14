@@ -6,6 +6,7 @@
         </Exinent_CustomerActivation>
     </modules>
     <global>
+
         <rewrite>
             <customeractivation>
                 <from><![CDATA[#^/customer/account/createpost/#]]></from>
@@ -45,6 +46,16 @@
                     <html_topmenu>Exinent_CustomerActivation_Block_Page_Html_Topmenu</html_topmenu>
                 </rewrite>
             </page>
+
+              
+      <adminhtml>
+         <rewrite>
+             <widget_form_renderer_fieldset>Exinent_CustomerActivation_Block_Adminhtml_Rewrite_Fieldset</widget_form_renderer_fieldset>
+        </rewrite>
+      </adminhtml>
+   
+   
+
         </blocks>
         <resources>
             <customeractivation_setup>
@@ -235,7 +246,10 @@
 			
         </carriers>
     </default>
-    <adminhtml>
+
+
+       
+          <adminhtml>
         <layout>
             <updates>
                 <customeractivation>

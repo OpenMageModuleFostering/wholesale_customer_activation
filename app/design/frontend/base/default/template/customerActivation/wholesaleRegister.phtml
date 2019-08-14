@@ -12,8 +12,8 @@
         Mage::getSingleton('core/session')->unsEmailError();
     }
     ?>
-<?php echo $this->getChildHtml('form_fields_before') ?>
-    <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="form-validate" enctype="multipart/form-data">
+    <?php echo $this->getChildHtml('form_fields_before') ?>
+    <form action="<?php echo $this->getPostActionUrl() ?>" method="post" id="form-validate" onsubmit="return Validate(this);" name="frmSample" enctype="multipart/form-data">
         <div class="fieldset">
             <input type="hidden" name="customer_activation" value="customerActivation" />
             <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
@@ -21,9 +21,9 @@
             <h2 class="legend"><?php echo $this->__('Personal Information') ?></h2>
             <ul class="form-list">
                 <input type="hidden" name="group_id" id="group_id" value="2"/>
-                    <?php Mage::getSingleton('customer/session')->setNewRegistration(1); ?>
+                <?php Mage::getSingleton('customer/session')->setNewRegistration(1); ?>
                 <li class="fields">
-<?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getFormData())->toHtml() ?>
+                    <?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getFormData())->toHtml() ?>
                 </li>
                 <li>
                     <label for="email_address" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
@@ -42,15 +42,15 @@
                 <?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
                 <?php if ($_gender->isEnabled()): ?>
                     <li><?php echo $_gender->setGender($this->getFormData()->getGender())->toHtml() ?></li>
-<?php endif ?>
+                <?php endif ?>
             </ul>
         </div>
 
         <div class="fieldset">
 
             <ul class="form-list">
-<?php $addressconfig = Mage::getStoreConfig('customer/customeractivation/address_field'); ?>
-<?php if ($addressconfig == 1): ?>
+                <?php $addressconfig = Mage::getStoreConfig('customer/customeractivation/address_field'); ?>
+                <?php if ($addressconfig == 1): ?>
                     <input type="hidden" name="create_address" value="1" />
                     <li class="fields">
                         <div class="field">
@@ -68,7 +68,7 @@
                     </li>
 
 
-    <?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
+                    <?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
                     <li class="wide">
                         <label for="street_1" class="required"><em>*</em><?php echo $this->__('Address line 1') ?></label>
                         <div class="input-box">
@@ -79,7 +79,7 @@
 
                     <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
 
-    <?php for ($_i = 2, $_n = $this->helper('customer/address')->getStreetLines(); $_i <= $_n; $_i++): ?>
+                    <?php for ($_i = 2, $_n = $this->helper('customer/address')->getStreetLines(); $_i <= $_n; $_i++): ?>
                         <li class="wide">
                             <label for="street_1"><?php echo $this->__('Address line 2') ?></label>
                             <div class="input-box">
@@ -119,7 +119,7 @@
                             <div class="field">
                                 <label for="country" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
                                 <div class="input-box">
-        <?php echo $this->getCountryHtmlSelect() ?>
+                                    <?php echo $this->getCountryHtmlSelect() ?>
                                 </div>
                             </div>
                         </li>
@@ -140,8 +140,8 @@
                             </script>
                             <label for="termas"><?php echo $this->__('Box if Billing and Shipping address are the same') ?></label>
                         </li>
-    <?php endfor; ?>
-<?php endif; ?>
+                    <?php endfor; ?>
+                <?php endif; ?>
                 <li class="fields">
                     <div class="field">
                         <label for="password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
@@ -196,15 +196,17 @@
                     </div>
                 </li>
                 <li>
-                    <label for="datefounded"><?php echo $this->__("Date Founded") ?></label>
+                    <label for="datefounded"class="required"><em>*</em><?php echo $this->__("Date Founded") ?></label>
                     <div class="input-box">
-                        <input type="text" id="_datefounded" name="datefounded" class="input-text validate-date-au" />
+                        <input type="text" id="datefounded" name="datefounded" class="input-text" />
                     </div>
+                    <div id="dateerror"></div>
                 </li>
                 <li>
-                    <label for="uploadimage" ><?php echo $this->__('Upload Image of store') ?></label>
+                    <label for="uploadimage" class="required"><em>*</em><?php echo $this->__('Upload Image of store') ?></label>
                     &nbsp;<input name="MAX_FILE_SIZE" type="hidden" value="2000000" />
                     <input name="attachment" id="attachment"  type="file" />
+                    <div id="imgerror"></div>
                 </li>
                 <li id="payment-terms">
                     <label for="paymentterms" ><?php echo $this->__('Payment-terms Options') ?></label>
@@ -248,8 +250,8 @@
             </ul>
         </div>
         <?php if (Mage::getStoreConfig("fontis_recaptcha/recaptcha/customer")): ?>
-    <?php echo $this->getChildHtml('recaptcha_box') ?>
-<?php endif; ?>
+            <?php echo $this->getChildHtml('recaptcha_box') ?>
+        <?php endif; ?>
 
         <div class="buttons-set">
             <p class="required"><?php echo $this->__('* Required Fields') ?></p>
@@ -259,9 +261,54 @@
     </form>
     <script type="text/javascript">
         jQuery.noConflict();
+        var _validFileExtensions = [".jpg", ".jpeg", ".bmp", ".gif", ".png"];
+        function Validate() {
+
+            var dt = document.frmSample.datefounded
+            if (isDate(dt.value) == false) {
+                dt.focus()
+                return false
+            }
+
+            var fup = document.getElementById('attachment');
+            var fileName = fup.value;
+            var imagename = fileName.substring(0,fileName.lastIndexOf('.'));
+            var ck_username = /^[A-Za-z0-9_]{3,20}$/;         
+             
+            
+            var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
+
+            if (ext == "png" || ext == "PNG" || ext == "JPG" || ext == "jpg" || ext == "JPEG" || ext == "jpeg")
+            {
+                jQuery('#imgerror').removeClass( 'validation-advice' );
+            document.getElementById("imgerror").innerHTML="";
+                
+            }
+            else
+            {
+                
+                jQuery('#imgerror').addClass( 'validation-advice' );
+            document.getElementById("imgerror").innerHTML="Upload PNG or JPG Images only";
+                //alert("Upload PNG or JPG Images only");
+                return false;
+            }
+            if (!ck_username.test(imagename)) {
+                jQuery('#imgerror').addClass( 'validation-advice' );
+            document.getElementById("imgerror").innerHTML="Please upload valid FileName";
+            return false;
+            }else
+            {
+                
+                jQuery('#imgerror').removeClass( 'validation-advice' );
+            document.getElementById("imgerror").innerHTML="";
+                //alert("Upload PNG or JPG Images only");
+                return true;;
+            }
+
+        }
         var paymentterms = jQuery('#paymentterms').val();
-        jQuery(document).ready(function() {
-            jQuery("#paymentterms").change(function(event) {
+        jQuery(document).ready(function () {
+            jQuery("#paymentterms").change(function (event) {
                 if (jQuery(this).val() == 'net30' || jQuery(this).val() == 'net15') {
                     jQuery("#information_msg").show();
                 } else {
@@ -277,3 +324,102 @@
 <style type="text/css">
     #payment-terms, #brandsyoucarry, #ups{display: none;}
 </style>
+<script language = "Javascript">
+
+    var dtCh = "/";
+    var minYear = 1900;
+    var maxYear = 2100;
+
+    function isInteger(s) {
+        var i;
+        for (i = 0; i < s.length; i++) {
+            // Check that current character is number.
+            var c = s.charAt(i);
+            if (((c < "0") || (c > "9")))
+                return false;
+        }
+        // All characters are numbers.
+        return true;
+    }
+
+    function stripCharsInBag(s, bag) {
+        var i;
+        var returnString = "";
+        // Search through string's characters one by one.
+        // If character is not in bag, append to returnString.
+        for (i = 0; i < s.length; i++) {
+            var c = s.charAt(i);
+            if (bag.indexOf(c) == -1)
+                returnString += c;
+        }
+        return returnString;
+    }
+
+    function daysInFebruary(year) {
+        // February has 29 days in any year evenly divisible by four,
+        // EXCEPT for centurial years which are not also divisible by 400.
+        return (((year % 4 == 0) && ((!(year % 100 == 0)) || (year % 400 == 0))) ? 29 : 28);
+    }
+    function DaysArray(n) {
+        for (var i = 1; i <= n; i++) {
+            this[i] = 31
+            if (i == 4 || i == 6 || i == 9 || i == 11) {
+                this[i] = 30
+            }
+            if (i == 2) {
+                this[i] = 29
+            }
+        }
+        return this
+    }
+
+    function isDate(dtStr) {
+        var daysInMonth = DaysArray(12)
+        var pos1 = dtStr.indexOf(dtCh)
+        var pos2 = dtStr.indexOf(dtCh, pos1 + 1)
+        var strMonth = dtStr.substring(0, pos1)
+        var strDay = dtStr.substring(pos1 + 1, pos2)
+        var strYear = dtStr.substring(pos2 + 1)
+        strYr = strYear
+        if (strDay.charAt(0) == "0" && strDay.length > 1)
+            strDay = strDay.substring(1)
+        if (strMonth.charAt(0) == "0" && strMonth.length > 1)
+            strMonth = strMonth.substring(1)
+        for (var i = 1; i <= 3; i++) {
+            if (strYr.charAt(0) == "0" && strYr.length > 1)
+                strYr = strYr.substring(1)
+        }
+        month = parseInt(strMonth)
+        day = parseInt(strDay)
+        year = parseInt(strYr)
+        if (pos1 == -1 || pos2 == -1) {
+             jQuery('#dateerror').addClass( 'validation-advice' );
+            document.getElementById("dateerror").innerHTML="The date format should be : mm/dd/yyyy";
+            //alert("The date format should be : mm/dd/yyyy")
+            return false
+        }
+        if (strMonth.length < 1 || month < 1 || month > 12) {
+              jQuery('#dateerror').addClass( 'validation-advice' );
+             document.getElementById("dateerror").innerHTML="The date format should be : mm/dd/yyyy";
+            return false
+        }
+        if (strDay.length < 1 || day < 1 || day > 31 || (month == 2 && day > daysInFebruary(year)) || day > daysInMonth[month]) {
+              jQuery('#dateerror').addClass( 'validation-advice' );
+            document.getElementById("dateerror").innerHTML="The date format should be : mm/dd/yyyy";
+            return false
+        }
+        if (strYear.length != 4 || year == 0 || year < minYear || year > maxYear) {
+              jQuery('#dateerror').addClass( 'validation-advice' );
+            document.getElementById("dateerror").innerHTML="The date format should be : mm/dd/yyyy";
+            return false
+        }
+        if (dtStr.indexOf(dtCh, pos2 + 1) != -1 || isInteger(stripCharsInBag(dtStr, dtCh)) == false) {
+              jQuery('#dateerror').addClass( 'validation-advice' );
+            document.getElementById("dateerror").innerHTML="The date format should be : mm/dd/yyyy";
+            return false
+        }
+        jQuery('#dateerror').removeClass( 'validation-advice' );
+            document.getElementById("dateerror").innerHTML="";
+        return true
+    }
+</script>

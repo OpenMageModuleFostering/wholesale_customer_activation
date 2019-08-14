@@ -3,7 +3,7 @@
 class Exinent_CustomerActivation_Block_Adminhtml_Customer_Edit_Tab_Customerimages extends Mage_Adminhtml_Block_Template implements Mage_Adminhtml_Block_Widget_Tab_Interface {
 
     public function __construct() {
-        parent::_construct();
+        //parent::_construct();
         $this->setTemplate('customerActivation/customerImages.phtml');
     }
 
