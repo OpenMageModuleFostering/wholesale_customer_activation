@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Wholesale_Customer_Activation",
+    "type": "magento-module",
+    "license": "Open-Software-License-(OSL)",
+    "homepage": "",
+    "description": "This extension activates the customers, products, categories and cms pages based on the customer group",
+    "authors": [
+    {
+        "name": "Exinent Developer",
+        "email": "developer@exinent.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
