@@ -3,11 +3,11 @@
     "type": "magento-module",
     "license": "Open-Software-License",
     "homepage": "",
-    "description": "Added Features",
+    "description": "latest updates",
     "authors": [
     {
-        "name": "developer",
-        "email": "developer@exinent.com"
+        "name": "Exinent",
+        "email": "support@exinent.com"
     }
 ],
     "suggest": {

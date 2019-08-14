@@ -1,6 +1,6 @@
 <?php
 
-class Exinent_CustomerActivation_Model_Adminhtml_System_Config_Source_Products_Group_Multiselect {
+class Exinent_CustomerActivation_Model_Adminhtml_System_Products_Price_Multiselect {
 
     protected $_options;
 
@@ -8,7 +8,6 @@ class Exinent_CustomerActivation_Model_Adminhtml_System_Config_Source_Products_G
         if (!$this->_options) {
             $categoryCollection = Mage::getModel('catalog/product')
                     ->getCollection()
-                     ->addAttributeToFilter('status', array('eq'=>'1'))
                     ->addAttributeToSelect('*');
         }
         $optionArrays = array();
