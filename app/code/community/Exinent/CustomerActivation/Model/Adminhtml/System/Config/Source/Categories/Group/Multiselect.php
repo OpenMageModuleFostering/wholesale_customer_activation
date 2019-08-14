@@ -1,15 +1,16 @@
 <?php
 
-class Exinent_CustomerActivation_Model_Adminhtml_System_Products_Group_Multiselect {
+class Exinent_CustomerActivation_Model_Adminhtml_System_Config_Source_Categories_Group_Multiselect {
 
     protected $_options;
 
     public function toOptionArray() {
         if (!$this->_options) {
-            $categoryCollection = Mage::getModel('catalog/product')
+            $categoryCollection = Mage::getModel('catalog/category')
                     ->getCollection()
-                     ->addAttributeToFilter('status', array('eq'=>'1'))
-                    ->addAttributeToSelect('*');
+                    ->addAttributeToFilter('parent_id', array('gt' => 1))
+                    ->addAttributeToSelect('*')
+                    ->addIsActiveFilter();
         }
         $optionArrays = array();
         foreach ($categoryCollection as $category) {
@@ -19,7 +20,7 @@ class Exinent_CustomerActivation_Model_Adminhtml_System_Products_Group_Multisele
             array_push($optionArrays, $optionArray);
         }
         $this->_options = $optionArrays;
-        array_unshift($this->_options, array('value' => '', 'label' => Mage::helper('adminhtml')->__('No Product Selected')));
+        array_unshift($this->_options, array('value' => '', 'label' => Mage::helper('adminhtml')->__('No Category Selected')));
         return $this->_options;
     }
 

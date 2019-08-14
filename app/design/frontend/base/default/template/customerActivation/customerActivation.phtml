@@ -20,7 +20,13 @@
                     </div>
                     <div class="buttons-set">
                         <a title="<?php echo $this->__('Create an Account') ?>" class="button" href="<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>"><span><span><?php echo $this->__('Create an Account') ?></span></span></a><br/><br/>
+						<?php
+						
+						$moduleName = 'Exinent_CustomerActivation'; // edit to your required module name
+						//Mage::helper('core')->isModuleEnabled($moduleName) || 
+						if (!(Mage::getStoreConfig('advanced/modules_disable_output/Exinent_CustomerActivation')) && (Mage::getStoreConfig('customer/customeractivation/disable_ext'))) { ?>                         
                         <a class="button" href = "<?php echo Mage::getBaseUrl() . 'customerActivation/index/wholesale'; ?> "><span><span><?php echo $this->__('Wholesale Registration') ?></span></span></a>
+                        <?php } ?>
                     </div>
                 </div>
             <?php endif; ?>

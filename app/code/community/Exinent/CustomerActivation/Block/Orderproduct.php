@@ -60,12 +60,13 @@ class Exinent_CustomerActivation_Block_Orderproduct extends Mage_Core_Block_Temp
         $i = 0;
         foreach ($collectionSimple as $product) {
             if ($product->isSaleable()) {
+				$Products_one = Mage::getModel('catalog/product')->load($product->getId());
                 $orderProduct[$i]['product_id'] = $product->getId();
                 $orderProduct[$i]['product_url'] = $product->getUrlKey();
                 $orderProduct[$i]['name'] = $product->getName();
                 $orderProduct[$i]['price'] = $product->getFinalPrice();
                 $orderProduct[$i]['sku'] = $product->getSku();
-                $orderProduct[$i]['image'] = $product->getImageUrl();
+                $orderProduct[$i]['image'] = $Products_one->getImageUrl();
                 $i++;
             }
         }

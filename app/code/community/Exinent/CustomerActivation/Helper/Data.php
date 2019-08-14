@@ -5,6 +5,7 @@ class Exinent_CustomerActivation_Helper_Data extends Mage_Core_Helper_Abstract {
     const XML_PATH_EMAIL_ADMIN_NOTIFICATION = 'customer/customeractivation/admin_email';
     const XML_PATH_EMAIL_ADMIN_NOTIFICATION_TEMPLATE = 'customer/customeractivation/registration_admin_template';
     const XML_PATH_EMAIL_CUSTOMER_NOTIFICATION_TEMPLATE = 'customer/customeractivation/activation_template';
+    const XML_PATH_EMAIL_CUSTOMER_NOTIFICATION_TEMPLATE1 = 'customer/customeractivation/activation_template1';
     const XML_PATH_ALERT_CUSTOMER = 'customer/customeractivation/alert_customer';
     const XML_PATH_ALERT_ADMIN = 'customer/customeractivation/alert_admin';
     const XML_PATH_DEFAULT_STATUS = 'customer/customeractivation/activation_status_default';

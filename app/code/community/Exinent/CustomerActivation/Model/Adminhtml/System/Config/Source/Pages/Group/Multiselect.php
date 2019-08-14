@@ -1,6 +1,6 @@
 <?php
 
-class Exinent_CustomerActivation_Model_Adminhtml_System_Pages_Multiselect {
+class Exinent_CustomerActivation_Model_Adminhtml_System_Config_Source_Pages_Group_Multiselect {
 
     protected $_options;
 

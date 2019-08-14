@@ -39,14 +39,21 @@ $customerObj = Mage::getModel('customer/customer')->load($customer->getId());
         <?php $shippingCodePrice = array(); ?>
         <?php $_sole = count($_shippingRateGroups) == 1;
         foreach ($_shippingRateGroups as $code => $_rates):
-            if($customerObj->getUpsNumber() == "") {
-            if($code == 'thirdpartyups' ){continue;} }
-            if($customerObj->getFedexNumber() == ""){
-               if($code == 'thirdpartyfedex'){continue;} 
-            }
-            if($customerObj->getGroupId() == 2 && ($code == 'freeshipping' || $code == 'usps' || $code == 'flatrate')) {
-                                continue;
-                            }
+            //if($customerObj->getUpsNumber() == "") {
+            //if($code == 'thirdpartyups' ){continue;} }
+            //if($customerObj->getFedexNumber() == ""){
+            //   if($code == 'thirdpartyfedex'){continue;} 
+            //}
+            //if($customerObj->getGroupId() == 2 && ($code == 'freeshipping' || $code == 'usps' || $code == 'flatrate')) {
+            //                    continue;
+            //                }
+            if($customerObj->getGroupId() != 2)
+            {
+				if($code == 'thirdpartyfedex' || $code == 'thirdpartyups')
+				{
+					continue;
+				}
+			}
             ?>
             <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
             <dd>
@@ -74,7 +81,7 @@ $customerObj = Mage::getModel('customer/customer')->load($customer->getId());
 
                                 <?php endif; ?>
                                 <?php
-                                if ($_rate->getCode() == 'thirdpartyfedex_standand') {
+                                /*if ($_rate->getCode() == 'thirdpartyfedex_standand') {
                                     $shippingAccNo = " Acct # " . $customerObj->getFedexNumber();
                                     $flag = 1;
                                 }
@@ -84,11 +91,11 @@ $customerObj = Mage::getModel('customer/customer')->load($customer->getId());
                                 if ($_rate->getCode() == 'thirdpartyups_standand') {
                                     $shippingAccNo = " Acct # " . $customerObj->getUpsNumber();
                                     $flag = 1;
-                                }
+                                }*/
                                 ?>
+								<?php /*
 
-
-                <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+								<?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
                                     <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
 
                                 <label for="s_method_<?php echo $_rate->getCode() ?>">
@@ -114,7 +121,15 @@ $customerObj = Mage::getModel('customer/customer')->load($customer->getId());
                                 <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
                                         (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
                             <?php endif; ?>
-                                </label>
+                                </label> */?>
+							<label for="s_method_<?php echo $_rate->getCode() ?>"><?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+							<?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+							<?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+							<?php echo $_excl; ?>
+							<?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+								(<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+							<?php endif; ?>
+							</label>
                 <?php endif ?>
                         </li>
         <?php endforeach; ?>

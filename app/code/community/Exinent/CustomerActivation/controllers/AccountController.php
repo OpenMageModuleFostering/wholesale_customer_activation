@@ -58,13 +58,16 @@ const XML_PATH_ACTIVATION_STATUS = 'customer/customeractivation/activation_statu
             }
 
             $customer = $this->_getCustomer();
-            $default_address = $this->getRequest()->getPost('default_shipping');
+            //$default_address = $this->getRequest()->getPost('default_shipping');
+            
+            $default_address = $this->getRequest()->getPost('both_not_same'); // Akash added new hidden field for checking
 
             $shipping_address = $this->getRequest()->getPost('shipping');
             //echo "<pre>";print_r($this->getRequest()->getPost());
-            //echo "<pre>";print_r($this->getRequest()->getPost('shipping'));die(); 
+            //echo "<pre>";print_r($this->getRequest()->getPost('shipping'));die();  
+            
             //Billing & shipping address both are same
-            if ($default_address != "on") {
+            if ($default_address == 1) {
                 $customer = Mage::getModel('customer/customer');
                 $customer->setWebsiteId(Mage::app()->getWebsite()->getId());
                 $customer->loadByEmail($this->getRequest()->getPost('email'));
@@ -87,7 +90,7 @@ const XML_PATH_ACTIVATION_STATUS = 'customer/customeractivation/activation_statu
                 } catch (Exception $ex) {
                     //Zend_Debug::dump($ex->getMessage());
                 }
-
+				
                 //create customer address array & set billing and shipping as same
                 $_custom_address = array(
                     'firstname' => $this->getRequest()->getPost('firstname'),
@@ -274,7 +277,7 @@ const XML_PATH_ACTIVATION_STATUS = 'customer/customeractivation/activation_statu
                 Mage::helper('customeractivation')->sendCustomer1NotificationEmail($customer);
             }
 
-            $errUrl = $this->_getUrl('*/*/create', array('_secure' => true));
+            $errUrl = $this->_getUrl('*/*/login', array('_secure' => true));
             $this->_redirectError($errUrl);
         }
     }
