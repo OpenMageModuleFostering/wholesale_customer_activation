@@ -3,10 +3,10 @@
     "type": "magento-module",
     "license": "Open-Software-License",
     "homepage": "",
-    "description": "Bug Fixes and New Features Added",
+    "description": "Bug Fixes",
     "authors": [
     {
-        "name": "Dev Team",
+        "name": "Exinent Dev Team",
         "email": "support@exinent.com"
     }
 ],
