@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/Wholesale_Customer_Activation",
+    "name": "openmage-module-fostering\/wholesale_customer_activation",
     "type": "magento-module",
-    "license": "Open-Software-License-(OSL)",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": " Bug fixes ",
     "authors": [
