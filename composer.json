@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Wholesale_Customer_Activation",
+    "name": "OpenMageModuleFostering\/Wholesale_Customer_Activation",
     "type": "magento-module",
     "license": "Open-Software-License-(OSL)",
     "homepage": "",
     "description": " Bug fixes ",
     "authors": [
-    {
-        "name": "Exinent",
-        "email": "developer@exinent.com"
-    }
-],
+        {
+            "name": "Exinent",
+            "email": "developer@exinent.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
